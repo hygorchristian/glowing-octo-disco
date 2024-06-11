@@ -1,7 +1,5 @@
 "use strict";
 
-// Print all entries, across all of the sources, in chronological order.
+const solution = require("./solution-2");
 
-module.exports = (logSources, printer) => {
-  return console.log("Sync sort complete.");
-};
+module.exports = solution.syncSortedMerge

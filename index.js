@@ -2,6 +2,7 @@
 
 const LogSource = require("./lib/log-source");
 const Printer = require("./lib/printer");
+const solution = require('./solution/solution-3');
 
 function runSolutions(sourceCount) {
   return new Promise((resolve, reject) => {
@@ -30,7 +31,7 @@ function runSolutions(sourceCount) {
       syncLogSources.push(new LogSource());
     }
     try {
-      require("./solution/sync-sorted-merge")(syncLogSources, new Printer());
+      solution.syncSortedMerge(syncLogSources, new Printer());
       resolve();
     } catch (e) {
       reject(e);
@@ -54,7 +55,7 @@ function runSolutions(sourceCount) {
       for (let i = 0; i < sourceCount; i++) {
         asyncLogSources.push(new LogSource());
       }
-      require("./solution/async-sorted-merge")(asyncLogSources, new Printer())
+      solution.asyncSortedMerge(asyncLogSources, new Printer())
         .then(resolve)
         .catch(reject);
     });
@@ -62,4 +63,4 @@ function runSolutions(sourceCount) {
 }
 
 // Adjust this input to see how your solutions perform under various loads.
-runSolutions(100);
+runSolutions(1000);
