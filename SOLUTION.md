@@ -1,6 +1,6 @@
 # SOLUTION CHANGELOG
 
-## Revision 1
+## [Revision 1](/solution/solution-1.js)
 
 ### Thought Process
 
@@ -15,7 +15,7 @@
 - Created the first solution to the sync problem using brute force and experimenting how the code works.
 - Added memory usage to the logs to keep track of the memory usage.
 
-## Revision 2
+## [Revision 2](/solution/solution-2.js)
 
 ### Thought Process
 
@@ -23,7 +23,7 @@
 - Improved the space complexity of the problem by using a min heap, this saves memory but increases the time complexity a lot, since we need to sort the heap every time we add a new log.
 - I opted to use a library for the heap to save time.
 
-## Revision 3
+## [Revision 3](https://github.com/hygorchristian/glowing-octo-disco/blob/34f1130315e91b0f3751827c0634102228df1eb0/solution/solution-3.js)
 
 - Made an analysis of the second solution with some space complexity and time complexity.
 - Noted that the space complexity could be improved by using a priority queue, this saves memory and time complexity, since we don't need to sort the heap every time we add a new log.
