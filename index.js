@@ -2,7 +2,7 @@
 
 const LogSource = require("./lib/log-source");
 const Printer = require("./lib/printer");
-const solution = require('./solution/solution-3');
+const solution = require('./solution/solution-2');
 
 function runSolutions(sourceCount) {
   return new Promise((resolve, reject) => {

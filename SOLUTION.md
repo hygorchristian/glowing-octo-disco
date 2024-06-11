@@ -29,13 +29,19 @@
 - Noted that the space complexity could be improved by using a priority queue, this saves memory and time complexity, since we don't need to sort the heap every time we add a new log.
 - I opted to use a library for the priority queue to save time.
 - Still not 100% satisfied with the async solution, but I will leave it as is for now.
-- It looks like the optimal solution would be to batch process the async logs and merge the first solution with the third one, the tradeoff would be to use more memory, but less time. So in this case we would have to determine what's more important, time or memory.
+- It looks like the optimal solution would be to batch process the async logs and merge the first solution with the second one, the tradeoff would be to use more memory, but less time. So in this case we would have to determine what's more important, time or memory.
+
+### Very Important Note!!
+
+- After doing some tests I noticed that the third solution is consuming less memory but it is not working as expected, which makes me discard this solution
+- When I enabled the logs back, I noticed that there were some duplicated logs, which is not expected, so I will discard this solution and keep the second one.
+- This solution was removed, but you can still see it in the git log.
 
 ## Conclusion
 
 - I am happy with the results, I think this was a nice opportunity to revisit some data structures and algorithms that I haven't used in a while.
-- I am not 100% satisfied with the async solution, but I think it's good enough for now. What I would try if I had more time would be to batch process the async logs and merge the first solution with the third one, the tradeoff would be to use more memory, but less time, and if this was a real world scenario, I would have to determine what's more important, time or memory.
-- Taking only space complexity into consideration, the priority queue is the best solution since, for some reason, it uses less memory than the `heap`.
+- I am not 100% satisfied with the async solution, but I think it's good enough for now. What I would try if I had more time would be to batch process the async logs and merge the first solution with the second one, the tradeoff would be to use more memory, but less time, and if this was a real world scenario, I would have to determine what's more important, time or memory.
+- Taking only space complexity into consideration, the min heap is the best solution since, for some reason, it uses less memory than the `heap`.
 
 ## Results
 
@@ -54,14 +60,14 @@ These are the results of the tests I ran on my machine. Note that I have disable
 
 ### Table of Results
 
-| Solution # | Type  | # of log sources | Logs printed | Time taken (s) | Logs/s             | Memory usage (RSS) | Heap Total | Heap Used |
-|------------|-------|------------------|--------------|----------------|--------------------|--------------------|------------|-----------|
-| 1          | Sync  | 1000             | 239633       | 0.034          | 28918.26923076923  | 154.28 MB          | 110.84 MB  | 88.69 MB  |
-| 1          | Async | 1000             | 238855       | 0.05           | 4777100            | 157.03 MB          | 110.59 MB  | 81.15 MB  |
-| 2          | Sync  | 1000             | 238632       | 0.314          | 759974.5222929936  | 66.23 MB           | 23.88 MB   | 13.14 MB  |
-| 2          | Async | 1000             | 240616       | 280.446        | 857.9762235867154  | 66.48 MB           | 38.73 MB   | 18.24 MB  |
-| 3          | Sync  | 1000             | 238843       | 0.51           | 468319.60784313723 | 58.94 MB           | 16.38 MB   | 8.79 MB   |
-| 3          | Async | 1000             | 239022       | 278.773        | 857.4072811929418  | 40.61 MB           | 10.23 MB   | 6.75 MB   |
+| Solution # | Type      | # of log sources | Logs printed | Time taken (s) | Logs/s             | Memory usage (RSS) | Heap Total | Heap Used |
+|------------|-----------|------------------|--------------|----------------|--------------------|--------------------|------------|-----------|
+| 1          | Sync      | 1000             | 239633       | 0.034          | 28918.26923076923  | 154.28 MB          | 110.84 MB  | 88.69 MB  |
+| 1          | Async     | 1000             | 238855       | 0.05           | 4777100            | 157.03 MB          | 110.59 MB  | 81.15 MB  |
+| 2          | Sync      | 1000             | 238632       | 0.314          | 759974.5222929936  | 66.23 MB           | 23.88 MB   | 13.14 MB  |
+| 2          | Async     | 1000             | 240616       | 280.446        | 857.9762235867154  | 66.48 MB           | 38.73 MB   | 18.24 MB  |
+| ~~3~~      | ~~Sync~~  | 1000             | 238843       | 0.51           | 468319.60784313723 | 58.94 MB           | 16.38 MB   | 8.79 MB   |
+| ~~3~~      | ~~Async~~ | 1000             | 239022       | 278.773        | 857.4072811929418  | 40.61 MB           | 10.23 MB   | 6.75 MB   |
 
 
 
@@ -114,7 +120,7 @@ These are the results of the tests I ran on my machine. Note that I have disable
 | Heap Total:         | 38.73 MB          |
 | Heap Used:          | 18.24 MB          |
 
-### Solution 3 - Using Priority Queue
+### Solution 3 - Using Priority Queue - !!Discarded!!
 
 #### Sync
 
