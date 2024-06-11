@@ -32,7 +32,7 @@ function syncSortedMerge(logSources, printer) {
 
     // Step 3. While the min heap is not empty, pop the min log entry and print it
     while (!minHeap.empty()) {
-        const { log, index } = minHeap.pop();
+        const { log, index } = minHeap.top();
 
         // Print the log entry
         printer.print(log);
@@ -41,7 +41,9 @@ function syncSortedMerge(logSources, printer) {
 
         if (nextLog) {
             // Push the next log entry from the same source back into the min heap
-            minHeap.push({ log: nextLog, index });
+            minHeap.pushpop({ log: nextLog, index });
+        }else{
+            minHeap.pop();
         }
     }
 
