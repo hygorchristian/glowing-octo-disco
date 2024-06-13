@@ -23,25 +23,13 @@
 - Improved the space complexity of the problem by using a min heap, this saves memory but increases the time complexity a lot, since we need to sort the heap every time we add a new log.
 - I opted to use a library for the heap to save time.
 
-## [Revision 3](https://github.com/hygorchristian/glowing-octo-disco/blob/34f1130315e91b0f3751827c0634102228df1eb0/solution/solution-3.js)
+## [Revision 3](/solution/solution-3.js)
 
-- Made an analysis of the second solution with some space complexity and time complexity.
-- Noted that the space complexity could be improved by using a priority queue, this saves memory and time complexity, since we don't need to sort the heap every time we add a new log.
-- I opted to use a library for the priority queue to save time.
-- Still not 100% satisfied with the async solution, but I will leave it as is for now.
-- It looks like the optimal solution would be to batch process the async logs and merge the first solution with the second one, the tradeoff would be to use more memory, but less time. So in this case we would have to determine what's more important, time or memory.
-
-### Very Important Note!!
-
-- After doing some tests I noticed that the third solution is consuming less memory but it is not working as expected, which makes me discard this solution
-- When I enabled the logs back, I noticed that there were some duplicated logs, which is not expected, so I will discard this solution and keep the second one.
-- This solution was removed, but you can still see it in the git log.
-
-## Conclusion
-
-- I am happy with the results, I think this was a nice opportunity to revisit some data structures and algorithms that I haven't used in a while.
-- I am not 100% satisfied with the async solution, but I think it's good enough for now. What I would try if I had more time would be to batch process the async logs and merge the first solution with the second one, the tradeoff would be to use more memory, but less time, and if this was a real world scenario, I would have to determine what's more important, time or memory.
-- Taking only space complexity into consideration, the min heap is the best solution since, for some reason, it uses less memory than the `heap`.
+- Improved the time complexity of the problem by using a non-blocking async solution.
+- This solution mixes the first and second solutions, where we use a heap to sort the logs and parallel promises to fetch the logs.
+- This solution is more efficient than the previous async solution, but it uses more memory
+- The approach is similar to a Tetris game, we keep receiving blocks, and we keep sorting them until we have a full line, once this happens it means that all sources have been drained at the same level and once this happens we can flush the logs with a high level of confidence that they are in order.
+- It's possible to adjust the solution to use less space, but this tradeoff would make the solution slower.
 
 ## Results
 
@@ -66,9 +54,8 @@ These are the results of the tests I ran on my machine. Note that I have disable
 | 1          | Async     | 1000             | 238855       | 0.05           | 4777100            | 157.03 MB          | 110.59 MB  | 81.15 MB  |
 | 2          | Sync      | 1000             | 238632       | 0.314          | 759974.5222929936  | 66.23 MB           | 23.88 MB   | 13.14 MB  |
 | 2          | Async     | 1000             | 240616       | 280.446        | 857.9762235867154  | 66.48 MB           | 38.73 MB   | 18.24 MB  |
-| ~~3~~      | ~~Sync~~  | 1000             | 238843       | 0.51           | 468319.60784313723 | 58.94 MB           | 16.38 MB   | 8.79 MB   |
-| ~~3~~      | ~~Async~~ | 1000             | 239022       | 278.773        | 857.4072811929418  | 40.61 MB           | 10.23 MB   | 6.75 MB   |
-
+| 3          | Sync      | 1000             | 239419       | 0.323          | 741235.294117647   | 66.27 MB           | 23.88 MB   | 13.66 MB  |
+| 3          | Async     | 1000             | 238905       | 17.969         | 13295.397629250374 | 80.94 MB           | 71.58 MB   | 18.96 MB  |
 
 
 ### Solution 1 - Using Array and Sorting - Bruteforce
@@ -120,26 +107,26 @@ These are the results of the tests I ran on my machine. Note that I have disable
 | Heap Total:         | 38.73 MB          |
 | Heap Used:          | 18.24 MB          |
 
-### Solution 3 - Using Priority Queue - !!Discarded!!
+### Solution 3 - Non blocking async
 
 #### Sync
 
-| Message             | Value              |
-|---------------------|--------------------|
-| Logs printed:       | 238843             |
-| Time taken (s):     | 0.51               |
-| Logs/s:             | 468319.60784313723 |
-| Memory usage (RSS): | 58.94 MB           |
-| Heap Total:         | 16.38 MB           |
-| Heap Used:          | 8.79 MB            |
+| Message             | Value            |
+|---------------------|------------------|
+| Logs printed:       | 239419           |
+| Time taken (s):     | 0.323            |
+| Logs/s:             | 741235.294117647 |
+| Memory usage (RSS): | 66.27 MB         |
+| Heap Total:         | 23.88 MB         |
+| Heap Used:          | 13.66 MB         |
 
 #### Async
 
-| Message             | Value             |
-|---------------------|-------------------|
-| Logs printed:       | 239022            |
-| Time taken (s):     | 278.773           |
-| Logs/s:             | 857.4072811929418 |
-| Memory usage (RSS): | 40.61 MB          |
-| Heap Total:         | 10.23 MB          |
-| Heap Used:          | 6.75 MB           |
+| Message             | Value              |
+|---------------------|--------------------|
+| Logs printed:       | 238905             |
+| Time taken (s):     | 17.969             |
+| Logs/s:             | 13295.397629250374 |
+| Memory usage (RSS): | 80.94 MB           |
+| Heap Total:         | 71.58 MB           |
+| Heap Used:          | 18.96 MB           |
